@@ -73,7 +73,8 @@ class _HomeScreenState extends State<HomeScreen>
               children: [
                 /// Search Box
                 Expanded(
-                  child: TypeAheadField(controller: textEditingController,
+                  child: TypeAheadField(
+                    controller: textEditingController,
                     builder: (context, cont, focusNode) {
                       return TextField(
                         cursorColor: Colors.blue,
@@ -83,7 +84,8 @@ class _HomeScreenState extends State<HomeScreen>
                           BlocProvider.of<HomeBloc>(
                             context,
                           ).add(LoadCwEvent(prefix));
-                          FocusScope.of(context).unfocus();                        },
+                          FocusScope.of(context).unfocus();
+                        },
 
                         style: DefaultTextStyle.of(
                           context,
@@ -125,9 +127,7 @@ class _HomeScreenState extends State<HomeScreen>
                     },
                     onSelected: (Data model) {
                       textEditingController.text = model.name!;
-                      setState(() {
-
-                      });
+                      setState(() {});
                       BlocProvider.of<HomeBloc>(
                         context,
                       ).add(LoadCwEvent(model.name!));
@@ -147,7 +147,6 @@ class _HomeScreenState extends State<HomeScreen>
                     child: BlocListener<HomeBloc, HomeState>(
                       listener: (context, state) {
                         if (state is CurrentWeatherCompleted) {
-                          final cityName = state.currentCityEntity.name!;
                           BlocProvider.of<FindCityBloc>(context).add(
                             FindCityByNameEvent(state.currentCityEntity.name!),
                           );
@@ -214,9 +213,9 @@ class _HomeScreenState extends State<HomeScreen>
           BlocConsumer<HomeBloc, HomeState>(
             listener: (BuildContext context, HomeState state) {
               if (state is CurrentWeatherCompleted) {
-                final params = ForecastParams(
-                  state.currentCityEntity.coord!.lat!,
-                  state.currentCityEntity.coord!.lon!,
+                final params = ForecastParams(lat: state.currentCityEntity.coord!.lat!,
+                  lon:state.currentCityEntity.coord!.lon! ,
+                  
                 );
                 BlocProvider.of<ForecastBloc>(
                   context,

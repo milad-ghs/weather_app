@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:weather_app_new/core/resource/data_state.dart';
-import 'package:weather_app_new/features/feature_bookmark/domain/entities/bookmarked_city_entity.dart';
 
 import '../../../domain/use_cases/find_city_byname_usecase.dart';
 
@@ -17,12 +16,12 @@ class FindCityBloc extends Bloc<FindCityEvent, FindCityState> {
     on<FindCityByNameEvent>((event, emit) async {
       try {
         emit(FindCityLoading());
-        final  dataState = await findCityByNameUseCase(event.cityName);
+        final dataState = await findCityByNameUseCase(event.cityName);
 
         if (dataState is DataSuccess) {
           final isExist = dataState.data!;
-            emit(FindCityCompleted(isExist));
-        } else  {
+          emit(FindCityCompleted(isExist));
+        } else {
           final msg = dataState.message ?? 'Unknown error';
           emit(FindCityError(msg));
         }

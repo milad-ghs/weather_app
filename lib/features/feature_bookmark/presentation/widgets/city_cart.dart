@@ -21,7 +21,6 @@ class CityCart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     return Padding(
       padding: const EdgeInsets.only(right: 15.0),
@@ -74,7 +73,8 @@ class CityCart extends StatelessWidget {
                                         borderRadius: BorderRadius.circular(12),
                                       ),
                                     ),
-                                    onPressed: () => Navigator.of(ctx).pop(false),
+                                    onPressed: () =>
+                                        Navigator.of(ctx).pop(false),
                                     child: const Text(
                                       'No',
                                       style: TextStyle(
@@ -96,7 +96,8 @@ class CityCart extends StatelessWidget {
                                         borderRadius: BorderRadius.circular(12),
                                       ),
                                     ),
-                                    onPressed: () => Navigator.of(ctx).pop(true),
+                                    onPressed: () =>
+                                        Navigator.of(ctx).pop(true),
                                     child: const Text(
                                       'Yes',
                                       style: TextStyle(
@@ -124,9 +125,9 @@ class CityCart extends StatelessWidget {
               icon: PhosphorIcons.trash(PhosphorIconsStyle.regular),
               label: 'Delete',
               borderRadius: BorderRadius.only(
-               topLeft: Radius.circular(16),
-               bottomLeft: Radius.circular(16)
-                ),
+                topLeft: Radius.circular(16),
+                bottomLeft: Radius.circular(16),
+              ),
             ),
             SlidableAction(
               onPressed: (_) => (),
@@ -135,8 +136,8 @@ class CityCart extends StatelessWidget {
               icon: PhosphorIcons.x(PhosphorIconsStyle.regular),
               label: 'Close',
               borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(16),
-                  bottomRight: Radius.circular(16)
+                topRight: Radius.circular(16),
+                bottomRight: Radius.circular(16),
               ),
             ),
           ],
@@ -167,7 +168,9 @@ class CityCart extends StatelessWidget {
                     child: Row(
                       children: [
                         Icon(
-                          PhosphorIcons.mapPinSimple(PhosphorIconsStyle.regular),
+                          PhosphorIcons.mapPinSimple(
+                            PhosphorIconsStyle.regular,
+                          ),
                           size: 25,
                           color: Colors.grey,
                         ),

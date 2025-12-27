@@ -1,7 +1,12 @@
-class CityEntities {
+import 'package:equatable/equatable.dart';
+
+class CityEntities extends Equatable {
   final double? lat;
   final double? lon;
   final String? city;
 
-  CityEntities({this.lat, this.lon, this.city});
+  const CityEntities({this.lat, this.lon, this.city});
+
+  @override
+  List<Object?> get props => [lat, lon, city];
 }

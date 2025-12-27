@@ -18,7 +18,6 @@ class ForecastDaysEntity extends Equatable{
       this.elevation, this.dailyUnits, this.daily});
 
   @override
-  // TODO: implement props
   List<Object?> get props => [];
 
 }

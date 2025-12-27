@@ -23,7 +23,6 @@ class _DaysWeatherViewState extends State<DaysWeatherView> with SingleTickerProv
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 300));
@@ -78,10 +77,7 @@ class _DaysWeatherViewState extends State<DaysWeatherView> with SingleTickerProv
 
   @override
   void dispose() {
-    // TODO: implement dispose
     animationController.dispose();
-    // _fwBloc.dispose();
-    // _cwBloc.dispose();
     super.dispose();
   }
 }

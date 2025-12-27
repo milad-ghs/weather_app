@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import '../../../../core/resource/data_state.dart';
 import '../../domain/entities/current_city_entities.dart';
@@ -12,7 +13,7 @@ part 'home_state.dart';
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final GetCurrentWeatherUseCase getCurrentWeatherUseCase;
 
-  HomeBloc(this.getCurrentWeatherUseCase) : super(CurrentWeatherLoading()) {
+  HomeBloc(this.getCurrentWeatherUseCase) : super(CurrentWeatherInitial()) {
     on<LoadCwEvent>((event, emit) async {
       emit(CurrentWeatherLoading());
       DataState dataState = await getCurrentWeatherUseCase(event.cityName);

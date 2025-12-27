@@ -1,16 +1,11 @@
-
 import '../../domain/entities/suggest_city_entity.dart';
 
 /// data : [{"id":58764,"wikiDataId":"Q605157","type":"CITY","city":"Babol","name":"Babol","country":"Iran","countryCode":"IR","region":"Mazandaran","regionCode":"21","latitude":36.55,"longitude":52.683333333,"population":250217}]
 /// metadata : {"currentOffset":0,"totalCount":1}
 
-class SuggestCityModel extends SuggestCityEntity{
-  SuggestCityModel({
-    List<Data>? data,
-    Metadata? metadata,}) : super(
-      data: data,
-      metadata: metadata
-  );
+class SuggestCityModel extends SuggestCityEntity {
+  SuggestCityModel({List<Data>? data, Metadata? metadata})
+    : super(data: data, metadata: metadata);
 
   factory SuggestCityModel.fromJson(dynamic json) {
     /// parse json to object
@@ -23,7 +18,9 @@ class SuggestCityModel extends SuggestCityEntity{
 
     return SuggestCityModel(
       data: data,
-      metadata: json['metadata'] != null ? Metadata.fromJson(json['metadata']) : null,
+      metadata: json['metadata'] != null
+          ? Metadata.fromJson(json['metadata'])
+          : null,
     );
   }
 }
@@ -32,9 +29,7 @@ class SuggestCityModel extends SuggestCityEntity{
 /// totalCount : 1
 
 class Metadata {
-  Metadata({
-    int? currentOffset,
-    int? totalCount,}){
+  Metadata({int? currentOffset, int? totalCount}) {
     _currentOffset = currentOffset;
     _totalCount = totalCount;
   }
@@ -55,7 +50,6 @@ class Metadata {
     map['totalCount'] = _totalCount;
     return map;
   }
-
 }
 
 /// id : 58764
@@ -84,7 +78,8 @@ class Data {
     String? regionCode,
     double? latitude,
     double? longitude,
-    int? population,}){
+    int? population,
+  }) {
     _id = id;
     _wikiDataId = wikiDataId;
     _type = type;
@@ -155,5 +150,4 @@ class Data {
     map['population'] = _population;
     return map;
   }
-
 }

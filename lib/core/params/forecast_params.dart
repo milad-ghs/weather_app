@@ -1,5 +1,5 @@
 class ForecastParams{
   double lat;
   double lon;
-  ForecastParams(this.lat,this.lon);
+  ForecastParams({required this.lat,required this.lon});
 }

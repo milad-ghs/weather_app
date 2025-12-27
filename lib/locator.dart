@@ -1,5 +1,7 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
+import 'package:weather_app_new/core/utils/create_dio.dart';
 import 'package:weather_app_new/features/feature_bookmark/data/repository/bookmarked_repositoyImp.dart';
 import 'features/feature_bookmark/data/data_source/local/data_source.dart';
 import 'features/feature_bookmark/domain/repository/bookmark_repository.dart';
@@ -26,8 +28,11 @@ import 'features/feature_weather/presentation/bloc/location_bloc/location_bloc.d
 GetIt locator = GetIt.instance;
 
 setup() {
+    /// Dio
+  locator.registerSingleton<Dio>(createApiClient(''));
   /// data source
-  locator.registerSingleton<ApiProvider>(ApiProvider());
+  locator.registerSingleton<ApiProvider>(ApiProvider(dio: locator<Dio>()));
+
 
   /// ثبت FlutterSecureStorage
   locator.registerLazySingleton<FlutterSecureStorage>(
@@ -43,8 +48,10 @@ setup() {
   );
 
   /// repositories
-  locator.registerSingleton<WeatherRepository>(WeatherRepositoryImp(locator()));
-  locator.registerSingleton<BookmarkRepository>(BookmarkedRepositoryImpl(locator()));
+  locator.registerSingleton<WeatherRepository>(WeatherRepositoryImp( apiProvider: locator<ApiProvider>()));
+  locator.registerSingleton<BookmarkRepository>(
+    BookmarkedRepositoryImpl(locator()),
+  );
 
   /// use case
   locator.registerSingleton<GetCurrentWeatherUseCase>(
@@ -55,12 +62,23 @@ setup() {
   );
   locator.registerSingleton<GetCurrentLocation>(GetCurrentLocation(locator()));
 
-   //bookmark
-  locator.registerSingleton<DeleteAllCitiesUseCase>(DeleteAllCitiesUseCase(locator()));
-  locator.registerSingleton<DeleteByCityNameUseCase>(DeleteByCityNameUseCase(locator()));
-  locator.registerSingleton<FindCityByNameUseCase>(FindCityByNameUseCase(locator()));
-  locator.registerSingleton<GetAllCitiesUseCase>(GetAllCitiesUseCase(locator()));
-  locator.registerSingleton<SaveCityByNameUseCase>(SaveCityByNameUseCase(locator()));
+  //bookmark
+  locator.registerSingleton<DeleteAllCitiesUseCase>(
+    DeleteAllCitiesUseCase(locator()),
+  );
+  locator.registerSingleton<DeleteByCityNameUseCase>(
+    DeleteByCityNameUseCase(locator()),
+  );
+  locator.registerSingleton<FindCityByNameUseCase>(
+    FindCityByNameUseCase(locator()),
+  );
+  locator.registerSingleton<GetAllCitiesUseCase>(
+    GetAllCitiesUseCase(locator()),
+  );
+  locator.registerSingleton<SaveCityByNameUseCase>(
+    SaveCityByNameUseCase(locator()),
+  );
+
   /// bloc
 
   locator.registerSingleton<HomeBloc>(HomeBloc(locator()));
@@ -68,6 +86,7 @@ setup() {
   locator.registerSingleton<LocationBloc>(LocationBloc(locator()));
 
   //bookmark
+  
   locator.registerSingleton<DeleteAllBloc>(DeleteAllBloc(locator()));
   locator.registerSingleton<DeleteCityBloc>(DeleteCityBloc(locator()));
   locator.registerSingleton<FindCityBloc>(FindCityBloc(locator()));

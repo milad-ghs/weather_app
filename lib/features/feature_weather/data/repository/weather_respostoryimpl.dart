@@ -4,7 +4,6 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:weather_app_new/features/feature_weather/data/models/suggest_city_model.dart';
 import 'package:weather_app_new/features/feature_weather/domain/entities/suggest_city_entity.dart';
-
 import '../../../../core/params/forecast_params.dart';
 import '../../../../core/resource/data_state.dart';
 import '../../domain/entities/city_entities.dart';
@@ -17,8 +16,7 @@ import '../models/forecast_days_model.dart';
 
 class WeatherRepositoryImp extends WeatherRepository {
   ApiProvider apiProvider;
-
-  WeatherRepositoryImp(this.apiProvider);
+  WeatherRepositoryImp({required this.apiProvider});
 
   /// Current
   @override
@@ -46,7 +44,7 @@ class WeatherRepositoryImp extends WeatherRepository {
     ForecastParams params,
   ) async {
     try {
-      Response response = await ApiProvider().sendRequest7DaysForecast(params);
+      Response response = await apiProvider.sendRequest7DaysForecast(params);
 
       if (response.statusCode == 200) {
         final ForecastDaysEntity forecastDaysEntity =
@@ -106,17 +104,16 @@ class WeatherRepositoryImp extends WeatherRepository {
     }
   }
 
+  /// Suggestion
   @override
   Future<List<Data>> fetchSuggestData(cityName) async {
+    final Response response = await apiProvider.sendRequestCitySuggestion(
+      cityName,
+    );
 
-      final Response response = await apiProvider.sendRequestCitySuggestion(
-        cityName,
-      );
-
-      final SuggestCityEntity suggestCityEntity = SuggestCityModel.fromJson(
-        response.data,
-      );
-      return suggestCityEntity.data!;
-
+    final SuggestCityEntity suggestCityEntity = SuggestCityModel.fromJson(
+      response.data,
+    );
+    return suggestCityEntity.data!;
   }
 }
